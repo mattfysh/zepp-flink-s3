@@ -1,0 +1,87 @@
+{
+  "paragraphs": [
+    {
+      "text": "%flink\nimport org.apache.flink.api.common.serialization.SimpleStringEncoder\nimport org.apache.flink.core.fs.Path\nimport org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink\n\nval env \u003d StreamExecutionEnvironment.getExecutionEnvironment\nval source \u003d env.fromElements(\"a\", \"b\", \"c\")\nval sink: StreamingFileSink[String] \u003d StreamingFileSink\n    .forRowFormat(new Path(\"s3a://x/y/z\"), new SimpleStringEncoder[String](\"UTF-8\"))\n    .build()\n\nsource.addSink(sink)\n\nenv.execute()",
+      "user": "anonymous",
+      "dateUpdated": "2022-10-20 20:53:12.235",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.flink.api.common.serialization.SimpleStringEncoder\nimport org.apache.flink.core.fs.Path\nimport org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink\n\u001b[1m\u001b[34menv\u001b[0m: \u001b[1m\u001b[32morg.apache.flink.streaming.api.scala.StreamExecutionEnvironment\u001b[0m \u003d org.apache.flink.streaming.api.scala.StreamExecutionEnvironment@29b2fed5\n\u001b[1m\u001b[34msource\u001b[0m: \u001b[1m\u001b[32morg.apache.flink.streaming.api.scala.DataStream[String]\u001b[0m \u003d org.apache.flink.streaming.api.scala.DataStream@35777e01\n\u001b[1m\u001b[34msink\u001b[0m: \u001b[1m\u001b[32morg.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink[String]\u001b[0m \u003d org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink@2e9da6a7\n\u001b[1m\u001b[34mres0\u001b[0m: \u001b[1m\u001b[32morg.apache.flink.streaming.api.datastream.DataStreamSink[String]\u001b[0m \u003d org.apache.flink.streaming.api.datastream.DataStreamSink@7eabce37\norg.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 6b1181756a7b266ed5440fe2db1504db)\n  at org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$null$6(ClusterClientJobClientAdapter.java:125)\n  at java.util.concurrent.CompletableFuture.uniApply(CompletableFuture.java:616)\n  at java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:591)\n  at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)\n  at java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:1975)\n  at org.apache.flink.runtime.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:394)\n  at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)\n  at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)\n  at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)\n  at java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:1975)\n  at org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$24(RestClusterClient.java:670)\n  at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)\n  at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)\n  at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)\n  at java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:1975)\n  at org.apache.flink.runtime.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:394)\n  at java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:774)\n  at java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:750)\n  at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:488)\n  at java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:575)\n  at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:943)\n  at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:456)\n  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n  at java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.flink.runtime.client.JobExecutionException: Job execution failed.\n  at org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:144)\n  at org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$null$6(ClusterClientJobClientAdapter.java:123)\n  ... 24 more\nCaused by: org.apache.flink.runtime.JobException: Recovery is suppressed by NoRestartBackoffTimeStrategy\n  at org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.handleFailure(ExecutionFailureHandler.java:138)\n  at org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.getFailureHandlingResult(ExecutionFailureHandler.java:82)\n  at org.apache.flink.runtime.scheduler.DefaultScheduler.handleTaskFailure(DefaultScheduler.java:216)\n  at org.apache.flink.runtime.scheduler.DefaultScheduler.maybeHandleTaskFailure(DefaultScheduler.java:206)\n  at org.apache.flink.runtime.scheduler.DefaultScheduler.updateTaskExecutionStateInternal(DefaultScheduler.java:197)\n  at org.apache.flink.runtime.scheduler.SchedulerBase.updateTaskExecutionState(SchedulerBase.java:682)\n  at org.apache.flink.runtime.scheduler.SchedulerNG.updateTaskExecutionState(SchedulerNG.java:79)\n  at org.apache.flink.runtime.jobmaster.JobMaster.updateTaskExecutionState(JobMaster.java:435)\n  at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n  at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n  at java.lang.reflect.Method.invoke(Method.java:498)\n  at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcInvocation(AkkaRpcActor.java:305)\n  at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcMessage(AkkaRpcActor.java:212)\n  at org.apache.flink.runtime.rpc.akka.FencedAkkaRpcActor.handleRpcMessage(FencedAkkaRpcActor.java:77)\n  at org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleMessage(AkkaRpcActor.java:158)\n  at akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:26)\n  at akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:21)\n  at scala.PartialFunction$class.applyOrElse(PartialFunction.scala:123)\n  at akka.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:21)\n  at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:170)\n  at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n  at scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n  at akka.actor.Actor$class.aroundReceive(Actor.scala:517)\n  at akka.actor.AbstractActor.aroundReceive(AbstractActor.scala:225)\n  at akka.actor.ActorCell.receiveMessage(ActorCell.scala:592)\n  at akka.actor.ActorCell.invoke(ActorCell.scala:561)\n  at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:258)\n  at akka.dispatch.Mailbox.run(Mailbox.scala:225)\n  at akka.dispatch.Mailbox.exec(Mailbox.scala:235)\n  at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)\n  at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)\n  at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)\n  at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)\nCaused by: org.apache.flink.core.fs.UnsupportedFileSystemSchemeException: Could not find a file system implementation for scheme \u0027s3a\u0027. The scheme is directly supported by Flink through the following plugin: flink-s3-fs-hadoop. Please ensure that each plugin resides within its own subfolder within the plugins directory. See https://ci.apache.org/projects/flink/flink-docs-stable/ops/plugins.html for more information. If you want to use a Hadoop file system for that scheme, please add the scheme to the configuration fs.allowed-fallback-filesystems. For a full list of supported file systems, please see https://ci.apache.org/projects/flink/flink-docs-stable/ops/filesystems/.\n  at org.apache.flink.core.fs.FileSystem.getUnguardedFileSystem(FileSystem.java:513)\n  at org.apache.flink.core.fs.FileSystem.get(FileSystem.java:407)\n  at org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink$RowFormatBuilder.createBucketWriter(StreamingFileSink.java:288)\n  at org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink$RowFormatBuilder.createBuckets(StreamingFileSink.java:298)\n  at org.apache.flink.streaming.api.functions.sink.filesystem.StreamingFileSink.initializeState(StreamingFileSink.java:469)\n  at org.apache.flink.streaming.util.functions.StreamingFunctionUtils.tryRestoreFunction(StreamingFunctionUtils.java:189)\n  at org.apache.flink.streaming.util.functions.StreamingFunctionUtils.restoreFunctionState(StreamingFunctionUtils.java:171)\n  at org.apache.flink.streaming.api.operators.AbstractUdfStreamOperator.initializeState(AbstractUdfStreamOperator.java:96)\n  at org.apache.flink.streaming.api.operators.StreamOperatorStateHandler.initializeOperatorState(StreamOperatorStateHandler.java:118)\n  at org.apache.flink.streaming.api.operators.AbstractStreamOperator.initializeState(AbstractStreamOperator.java:290)\n  at org.apache.flink.streaming.runtime.tasks.OperatorChain.initializeStateAndOpenOperators(OperatorChain.java:441)\n  at org.apache.flink.streaming.runtime.tasks.StreamTask.restoreGates(StreamTask.java:582)\n  at org.apache.flink.streaming.runtime.tasks.StreamTaskActionExecutor$SynchronizedStreamTaskActionExecutor.call(StreamTaskActionExecutor.java:100)\n  at org.apache.flink.streaming.runtime.tasks.StreamTask.executeRestore(StreamTask.java:562)\n  at org.apache.flink.streaming.runtime.tasks.StreamTask.runWithCleanUpOnFail(StreamTask.java:647)\n  at org.apache.flink.streaming.runtime.tasks.StreamTask.restore(StreamTask.java:537)\n  at org.apache.flink.runtime.taskmanager.Task.doRun(Task.java:759)\n  at org.apache.flink.runtime.taskmanager.Task.run(Task.java:566)\n  at java.lang.Thread.run(Thread.java:748)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "http://localhost:8081#/job/6b1181756a7b266ed5440fe2db1504db"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1666299187538_727503868",
+      "id": "paragraph_1666299187538_727503868",
+      "dateCreated": "2022-10-20 20:53:07.538",
+      "dateStarted": "2022-10-20 20:53:12.267",
+      "dateFinished": "2022-10-20 20:53:44.255",
+      "status": "ERROR"
+    },
+    {
+      "text": "%flink\n",
+      "user": "anonymous",
+      "dateUpdated": "2022-10-20 20:53:12.264",
+      "progress": 0,
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1666299192263_1388879078",
+      "id": "paragraph_1666299192263_1388879078",
+      "dateCreated": "2022-10-20 20:53:12.264",
+      "status": "READY"
+    }
+  ],
+  "name": "S3 Error",
+  "id": "2HHVR217C",
+  "defaultInterpreterGroup": "flink",
+  "version": "0.10.0",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
